@@ -1,769 +1,615 @@
 <!doctype html>
 <html lang="zh-TW">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TaiSoc Chat</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
-    />
-    <link rel="stylesheet" href="{{ url_for('static', filename='chat-styles.css') }}">
-  </head>
-  <body>
-    <div class="app-container">
-      <aside class="sidebar">
-        <div class="sidebar-header">
-          <img
-            src="static/logo.png"
-            alt="TaiSoc Logo"
-            class="logo"
-            onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAA30lEQVR4nO3bQQqDMBRF0Gy6/y3bHaRgKIrGl3sPMn5HMPnjMQAAAAAAAAAAAAAAlHiN/uA8z3EcR9UpvnYfjJzzGMc9/9x938d5nmOMd84OzesBohAQhYAoBEQhIAoBUQiIQkAUAqIQEIWAKAREISAKAVEIiEJAFAKiEBCFgCgERCEgCgFRCIhCQBQCohAQhYAoBEQhIAoBUQiIQkAUAqIQEMW9n7m/oVnjnHNsRu7wQRQCohAQhYAoBEQhIAoBUQiIQkAUAqIQEIWAKAREISAKAVEIiEJAFAKiEBAAAAAAAAAA/+UNvf8Gw6pYIJUAAAAASUVORK5CYII='"
-          />
-          <h1 class="app-title">TaiSoc</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaiSoc Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='chat-styles.css') }}">
+</head>
+
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="static/logo.png" alt="TaiSoc Logo" class="logo"
+          onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAA30lEQVR4nO3bQQqDMBRF0Gy6/y3bHaRgKIrGl3sPMn5HMPnjMQAAAAAAAAAAAAAAlHiN/uA8z3EcR9UpvnYfjJzzGMc9/9x938d5nmOMd84OzesBohAQhYAoBEQhIAoBUQiIQkAUAqIQEIWAKAREISAKAVEIiEJAFAKiEBCFgCgERCEgCgFRCIhCQBQCohAQhYAoBEQhIAoBUQiIQkAUAqIQEMW9n7m/oVnjnHNsRu7wQRQCohAQhYAoBEQhIAoBUQiIQkAUAqIQEIWAKAREISAKAVEIiEJAFAKiEBAAAAAAAAAA/+UNvf8Gw6pYIJUAAAAASUVORK5CYII='" />
+        <h1 class="app-title">TaiSoc</h1>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="/chat" class="nav-item">
+          <div class="icon-wrapper">
+            <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
+                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M9 22V12H15V22" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              </path>
+            </svg>
+          </div>
+          <span class="nav-label">Home</span>
+        </a>
+
+        <a href="/explore" class="nav-item">
+          <div class="icon-wrapper">
+            <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 7.49997L12 11.9999M12 11.9999V16.4999M12 11.9999H16.5M12 11.9999H7.5M21 6.37498L21 17.625C21 19.489 19.489 21 17.625 21H6.375C4.51104 21 3 19.489 3 17.625V6.37498C3 4.51103 4.51104 3 6.375 3H17.625C19.489 3 21 4.51103 21 6.37498Z"
+                stroke="black" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <span class="nav-label">Explore</span>
+        </a>
+
+        <a href="#" class="nav-item" id="history-nav">
+          <div class="icon-wrapper">
+            <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M20.9999 21L16.6499 16.65" stroke="black" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <span class="nav-label">History</span>
+        </a>
+      </nav>
+
+      <!-- 歷史記錄面板 -->
+      <div id="history-panel"
+        style="flex: 1; display: none; flex-direction: column; padding: 8px; overflow: hidden; padding-bottom: 80px;">
+        <input type="text" id="searchInput" placeholder="搜尋聊天記錄..."
+          style="padding: 6px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 8px;" />
+        <div id="history-list" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
         </div>
+      </div>
 
-        <nav class="nav-menu">
-          <a href="/chat" class="nav-item">
-            <div class="icon-wrapper">
-              <svg
-                class="nav-icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M9 22V12H15V22"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </div>
-            <span class="nav-label">Home</span>
-          </a>
-
-          <a href="/explore" class="nav-item">
-            <div class="icon-wrapper">
-              <svg
-                class="nav-icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 7.49997L12 11.9999M12 11.9999V16.4999M12 11.9999H16.5M12 11.9999H7.5M21 6.37498L21 17.625C21 19.489 19.489 21 17.625 21H6.375C4.51104 21 3 19.489 3 17.625V6.37498C3 4.51103 4.51104 3 6.375 3H17.625C19.489 3 21 4.51103 21 6.37498Z"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                ></path>
-              </svg>
-            </div>
-            <span class="nav-label">Explore</span>
-          </a>
-
-          <a href="#" class="nav-item" id="history-nav">
-            <div class="icon-wrapper">
-              <svg
-                class="nav-icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M20.9999 21L16.6499 16.65"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </div>
-            <span class="nav-label">History</span>
-          </a>
-        </nav>
-
-        <!-- 歷史記錄面板 -->
-        <div id="history-panel" style="flex: 1; display: none; flex-direction: column; padding: 8px; overflow: hidden; padding-bottom: 80px;">
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="搜尋聊天記錄..."
-            style="padding: 6px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 8px;"
-            />
-          <div id="history-list" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
+      <div class="sidebar-footer">
+        <button class="menu-button" id="dotsButton">
+          <svg class="dots-icon" width="25" height="25" viewBox="0 0 25 25" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.5 7.5C11.1193 7.5 10 6.38071 10 5C10 3.61929 11.1193 2.5 12.5 2.5C13.8807 2.5 15 3.61929 15 5C15 6.38071 13.8807 7.5 12.5 7.5Z"
+              stroke="#272727" stroke-width="2"></path>
+            <path
+              d="M12.5 15C11.1193 15 10 13.8807 10 12.5C10 11.1193 11.1193 10 12.5 10C13.8807 10 15 11.1193 15 12.5C15 13.8807 13.8807 15 12.5 15Z"
+              stroke="#272727" stroke-width="2"></path>
+            <path
+              d="M12.5 22.5C11.1193 22.5 10 21.3807 10 20C10 18.6193 11.1193 17.5 12.5 17.5C13.8807 17.5 15 18.6193 15 20C15 21.3807 13.8807 22.5 12.5 22.5Z"
+              stroke="#272727" stroke-width="2"></path>
+          </svg>
+        </button>
+        <!-- 隱藏的選單容器（預設不顯示） -->
+        <div class="dots-menu-container" id="dotsMenu"
+          style="display: none; position: absolute; bottom: 40px; right: 2px;">
+          <nav class="sidebar-menu">
+            <ul class="menu-list">
+              <li class="menu-item">
+                <i class="ti ti-message-circle menu-icon"></i>
+                <span class="menu-text">Feedback</span>
+              </li>
+              <li class="menu-item">
+                <i class="ti ti-settings menu-icon"></i>
+                <span class="menu-text">Setting</span>
+              </li>
+              <li class="menu-item">
+                <i class="ti ti-info-circle menu-icon"></i>
+                <span class="menu-text">About us</span>
+              </li>
+            </ul>
+          </nav>
         </div>
+      </div>
+    </aside>
 
-        <div class="sidebar-footer">
-          <button class="menu-button" id="dotsButton">
-            <svg
-              class="dots-icon"
-              width="25"
-              height="25"
-              viewBox="0 0 25 25"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+    <main class="main-content">
+      <div class="action-button-container">
+        <button class="new-button" id="newChatBtn">
+          <svg class="plus-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="23" height="23" fill="white"></rect>
+            <rect x="0.5" y="0.5" width="23" height="23" stroke="black"></rect>
+            <path d="M11.9998 4.8L11.9998 19.2M19.1998 12L4.7998 12" stroke="black" stroke-width="2"
+              stroke-linecap="round"></path>
+          </svg>
+          <span class="button-text">New</span>
+        </button>
+      </div>
+
+      <section class="chat-welcome">
+        <img src="static/logo.png" alt="Chat Logo" class="chat-logo"
+          onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAA30lEQVR4nO3bQQqDMBRF0Gy6/y3bHaRgKIrGl3sPMn5HMPnjMQAAAAAAAAAAAAAAlHiN/uA8z3EcR9UpvnYfjJzzGMc9/9x938d5nmOMd84OzesBohAQhYAoBEQhIAoBUQiIQkAUAqIQEIWAKAREISAKAVEIiEJAFAKiEBCFgCgERCEgCgFRCIhCQBQCohAQhYAoBEQhIAoBUQiIQkAUAqIQEMW9n7m/oVnjnHNsRu7wQRQCohAQhYAoBEQhIAoBUQiIQkAUAqIQEIWAKAREISAKAVEIiEJAFAKiEBAAAAAAAAAA/+UNvf8Gw6pYIJUAAAAASUVORK5CYII='" />
+        <p class="welcome-text">Any new knowledge about Taiwan?</p>
+        <p class="welcome-text">Ask me...</p>
+      </section>
+
+      <!-- 加入聊天紀錄容器 -->
+      <div id="chat-history" style="overflow-y: auto; max-height: 670px; padding: 16px;"></div>
+
+      <div class="message-input-container">
+        <input type="text" id="message" placeholder="Enter your message" />
+        <div class="input-actions">
+          <button class="input-action-button">
+            <svg class="input-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
               <path
-                d="M12.5 7.5C11.1193 7.5 10 6.38071 10 5C10 3.61929 11.1193 2.5 12.5 2.5C13.8807 2.5 15 3.61929 15 5C15 6.38071 13.8807 7.5 12.5 7.5Z"
-                stroke="#272727"
-                stroke-width="2"
-              ></path>
-              <path
-                d="M12.5 15C11.1193 15 10 13.8807 10 12.5C10 11.1193 11.1193 10 12.5 10C13.8807 10 15 11.1193 15 12.5C15 13.8807 13.8807 15 12.5 15Z"
-                stroke="#272727"
-                stroke-width="2"
-              ></path>
-              <path
-                d="M12.5 22.5C11.1193 22.5 10 21.3807 10 20C10 18.6193 11.1193 17.5 12.5 17.5C13.8807 17.5 15 18.6193 15 20C15 21.3807 13.8807 22.5 12.5 22.5Z"
-                stroke="#272727"
-                stroke-width="2"
-              ></path>
+                d="M20 10.9696L11.9628 18.5497C10.9782 19.4783 9.64274 20 8.25028 20C6.85782 20 5.52239 19.4783 4.53777 18.5497C3.55315 17.6211 3 16.3616 3 15.0483C3 13.7351 3.55315 12.4756 4.53777 11.547L12.575 3.96687C13.2314 3.34779 14.1217 3 15.05 3C15.9783 3 16.8686 3.34779 17.525 3.96687C18.1814 4.58595 18.5502 5.4256 18.5502 6.30111C18.5502 7.17662 18.1814 8.01628 17.525 8.63535L9.47904 16.2154C9.15083 16.525 8.70569 16.6989 8.24154 16.6989C7.77738 16.6989 7.33224 16.525 7.00403 16.2154C6.67583 15.9059 6.49144 15.4861 6.49144 15.0483C6.49144 14.6106 6.67583 14.1907 7.00403 13.8812L14.429 6.88674"
+                stroke="black" stroke-opacity="0.42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              </path>
             </svg>
           </button>
-           <!-- 隱藏的選單容器（預設不顯示） -->
-          <div class="dots-menu-container" id="dotsMenu" style="display: none; position: absolute; bottom: 40px; right: 2px;">
-            <nav class="sidebar-menu">
-                <ul class="menu-list">
-                  <li class="menu-item">
-                    <i class="ti ti-message-circle menu-icon"></i>
-                    <span class="menu-text">Feedback</span>
-                  </li>
-                  <li class="menu-item">
-                    <i class="ti ti-settings menu-icon"></i>
-                    <span class="menu-text">Setting</span>
-                  </li>
-                  <li class="menu-item">
-                    <i class="ti ti-info-circle menu-icon"></i>
-                    <span class="menu-text">About us</span>
-                  </li>
-                </ul>
-            </nav>
-          </div>
-        </div>
-      </aside>
-
-      <main class="main-content">
-        <div class="action-button-container">
-          <button class="new-button" id="newChatBtn">
-            <svg
-              class="plus-icon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect x="0.5" y="0.5" width="23" height="23" fill="white"></rect>
-              <rect
-                x="0.5"
-                y="0.5"
-                width="23"
-                height="23"
-                stroke="black"
-              ></rect>
+          <button class="input-action-button">
+            <svg class="input-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
               <path
-                d="M11.9998 4.8L11.9998 19.2M19.1998 12L4.7998 12"
-                stroke="black"
-                stroke-width="2"
-                stroke-linecap="round"
-              ></path>
+                d="M12 1C11.2044 1 10.4413 1.31607 9.87868 1.87868C9.31607 2.44129 9 3.20435 9 4V12C9 12.7956 9.31607 13.5587 9.87868 14.1213C10.4413 14.6839 11.2044 15 12 15C12.7956 15 13.5587 14.6839 14.1213 14.1213C14.6839 13.5587 15 12.7956 15 12V4C15 3.20435 14.6839 2.44129 14.1213 1.87868C13.5587 1.31607 12.7956 1 12 1Z"
+                stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path
+                d="M19 10V12C19 13.8565 18.2625 15.637 16.9497 16.9497C15.637 18.2625 13.8565 19 12 19C10.1435 19 8.36301 18.2625 7.05025 16.9497C5.7375 15.637 5 13.8565 5 12V10"
+                stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M12 19V23" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              </path>
+              <path d="M8 23H16" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              </path>
             </svg>
-            <span class="button-text">New</span>
+          </button>
+          <button class="input-action-button">
+            <svg class="input-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="#828282" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M9 9H9.01" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              </path>
+              <path d="M15 9H15.01" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              </path>
+            </svg>
+          </button>
+          <button class="input-action-button" id="send-btn">
+            <svg class="input-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path
+                d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
+                stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M21 15L16 10L5 21" stroke="#828282" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
           </button>
         </div>
+      </div>
+    </main>
+  </div>
 
-        <section class="chat-welcome">
-          <img
-            src="static/logo.png"
-            alt="Chat Logo"
-            class="chat-logo"
-            onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAA30lEQVR4nO3bQQqDMBRF0Gy6/y3bHaRgKIrGl3sPMn5HMPnjMQAAAAAAAAAAAAAAlHiN/uA8z3EcR9UpvnYfjJzzGMc9/9x938d5nmOMd84OzesBohAQhYAoBEQhIAoBUQiIQkAUAqIQEIWAKAREISAKAVEIiEJAFAKiEBCFgCgERCEgCgFRCIhCQBQCohAQhYAoBEQhIAoBUQiIQkAUAqIQEMW9n7m/oVnjnHNsRu7wQRQCohAQhYAoBEQhIAoBUQiIQkAUAqIQEIWAKAREISAKAVEIiEJAFAKiEBAAAAAAAAAA/+UNvf8Gw6pYIJUAAAAASUVORK5CYII='"
-          />
-          <p class="welcome-text">Any new knowledge about Taiwan?</p>
-          <p class="welcome-text">Ask me...</p>
-        </section>
+  <!-- Setting 模態窗口 -->
+  <div id="settingModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Setting</h2>
 
-        <!-- 加入聊天紀錄容器 -->
-        <div id="chat-history" style="overflow-y: auto; max-height: 670px; padding: 16px;"></div>
+      <!-- Tab 選單 -->
+      <div class="tab-container">
+        <div class="tab active" id="profileTab">Profile</div>
+        <div class="tab" id="topicTab">Topic</div>
+        <div class="tab" id="accountTab">Account</div>
+      </div>
 
-        <div class="message-input-container">
-          <input type="text" id="message" placeholder="Enter your message" />
-          <div class="input-actions">
-            <button class="input-action-button">
-              <svg
-                class="input-icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 10.9696L11.9628 18.5497C10.9782 19.4783 9.64274 20 8.25028 20C6.85782 20 5.52239 19.4783 4.53777 18.5497C3.55315 17.6211 3 16.3616 3 15.0483C3 13.7351 3.55315 12.4756 4.53777 11.547L12.575 3.96687C13.2314 3.34779 14.1217 3 15.05 3C15.9783 3 16.8686 3.34779 17.525 3.96687C18.1814 4.58595 18.5502 5.4256 18.5502 6.30111C18.5502 7.17662 18.1814 8.01628 17.525 8.63535L9.47904 16.2154C9.15083 16.525 8.70569 16.6989 8.24154 16.6989C7.77738 16.6989 7.33224 16.525 7.00403 16.2154C6.67583 15.9059 6.49144 15.4861 6.49144 15.0483C6.49144 14.6106 6.67583 14.1907 7.00403 13.8812L14.429 6.88674"
-                  stroke="black"
-                  stroke-opacity="0.42"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </button>
-            <button class="input-action-button">
-              <svg
-                class="input-icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 1C11.2044 1 10.4413 1.31607 9.87868 1.87868C9.31607 2.44129 9 3.20435 9 4V12C9 12.7956 9.31607 13.5587 9.87868 14.1213C10.4413 14.6839 11.2044 15 12 15C12.7956 15 13.5587 14.6839 14.1213 14.1213C14.6839 13.5587 15 12.7956 15 12V4C15 3.20435 14.6839 2.44129 14.1213 1.87868C13.5587 1.31607 12.7956 1 12 1Z"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M19 10V12C19 13.8565 18.2625 15.637 16.9497 16.9497C15.637 18.2625 13.8565 19 12 19C10.1435 19 8.36301 18.2625 7.05025 16.9497C5.7375 15.637 5 13.8565 5 12V10"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M12 19V23"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M8 23H16"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </button>
-            <button class="input-action-button">
-              <svg
-                class="input-icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M9 9H9.01"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M15 9H15.01"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </button>
-            <button class="input-action-button" id="send-btn">
-              <svg
-                class="input-icon"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-                <path
-                  d="M21 15L16 10L5 21"
-                  stroke="#828282"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </button>
-          </div>
+      <!-- Profile 頁面 -->
+      <div class="tab-content" id="profileContent">
+        <div class="form-group">
+          <label>Your Name:</label>
+          <input type="text" id="userName">
         </div>
-      </main>
-    </div>
-
-    <!-- Setting 模態窗口 -->
-    <div id="settingModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Setting</h2>
-            
-            <!-- Tab 選單 -->
-            <div class="tab-container">
-                <div class="tab active" id="profileTab">Profile</div>
-                <div class="tab" id="topicTab">Topic</div>
-                <div class="tab" id="accountTab">Account</div>
-            </div>
-            
-            <!-- Profile 頁面 -->
-            <div class="tab-content" id="profileContent">
-              <div class="form-group">
-                 <label>Your Name:</label>
-                 <input type="text" id="userName">
-              </div>
-              <div class="form-group">
-                 <label>How to call you:</label>
-                 <input type="text" id="userNickname">
-              </div>
-              <div class="form-group">
-                 <label>Age:</label>
-                 <input type="number" id="userAge" min="0">
-              </div>
-              <div class="form-group">
-                 <label>Gender:</label>
-                 <select id="userGender" class="gender-select">
-                     <option value="">Select Gender</option>
-                     <option value="male">Male</option>
-                     <option value="female">Female</option>
-                     <option value="non-binary">Non-binary</option>
-                     <option value="other">Other</option>
-                     <option value="prefer-not-to-say">Prefer not to say</option>
-                 </select>
-             </div>
-             <button class="confirm-btn">Confirm</button>
-            </div>
-            
-            <!-- Topic 頁面 -->
-            <div class="tab-content" id="topicContent" style="display: none;">
-                <div class="form-group">
-                    <label>Language:</label>
-                    <select id="userLanguage" class="language-select" onchange="previewLanguage(this.value)">
-                        <option value="">Please select a language</option>
-                        <option value="en">English</option>
-                        <option value="zh-TW">繁體中文</option>
-                    </select>
-                </div>
-                <button class="confirm-btn">Confirm</button>
-            </div>
-            
-            <!-- Account 頁面 -->
-            <div class="tab-content" id="accountContent" style="display: none;">
-              <div class="form-group">
-              </div>
-              
-              <div class="account-action">
-                  <span>Log out all devices</span>
-                  <button class="logout-btn">Log out</button>
-              </div>
-              <div class="account-action">
-                  <span>Delete your account</span>
-                  <button class="delete-btn">Delete</button>
-              </div>
-            </div>
+        <div class="form-group">
+          <label>How to call you:</label>
+          <input type="text" id="userNickname">
         </div>
-    </div>
-
-    <!-- Feedback 模態窗口 -->
-    <div id="feedbackModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Feedback</h2>
-            <div class="form-group">
-                <label>Topic:</label>
-                <input type="text" id="feedbackTopic">
-            </div>
-            <div class="form-group">
-                <label>Content:</label>
-                <textarea id="feedbackContent" rows="10"></textarea>
-            </div>
-            <button class="send-btn">Send</button>
+        <div class="form-group">
+          <label>Age:</label>
+          <input type="number" id="userAge" min="0">
         </div>
-    </div>
-
-    <!-- About us 模態窗口 -->
-    <div id="aboutUsModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>About TaiSoc</h2>
-            <div class="about-content">
-                <p>TaiSoc is a platform focused on Taiwan's social and cultural exchange, dedicated to providing knowledge and information about Taiwan.</p>
-                <p>Our mission is to promote understanding of Taiwan's culture, society, and history, and to provide a friendly space for users to learn and exchange ideas.</p>
-                <h3>Contact Us</h3>
-                <p>IG：https://www.instagram.com/gdg.ntpu</p>
-                <p>Website：https://medium.com/@ntpugdsc</p>
-                <h3>Version</h3>
-                <p>TaiSoc v1.0.0</p>
-            </div>
+        <div class="form-group">
+          <label>Gender:</label>
+          <select id="userGender" class="gender-select">
+            <option value>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="non-binary">Non-binary</option>
+            <option value="other">Other</option>
+            <option value="prefer-not-to-say">Prefer not to say</option>
+          </select>
         </div>
+        <button class="confirm-btn">Confirm</button>
+      </div>
+
+      <!-- Topic 頁面 -->
+      <div class="tab-content" id="topicContent" style="display: none;">
+        <div class="form-group">
+          <label>Language:</label>
+          <select id="userLanguage" class="language-select" onchange="previewLanguage(this.value)">
+            <option value>Please select a language</option>
+            <option value="en">English</option>
+            <option value="zh-TW">繁體中文</option>
+          </select>
+        </div>
+        <button class="confirm-btn">Confirm</button>
+      </div>
+
+      <!-- Account 頁面 -->
+      <div class="tab-content" id="accountContent" style="display: none;">
+        <div class="form-group">
+        </div>
+
+        <div class="account-action">
+          <span>Log out all devices</span>
+          <button class="logout-btn">Log out</button>
+        </div>
+        <div class="account-action">
+          <span>Delete your account</span>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div>
     </div>
-<!-- 使用內嵌 JavaScript 來整合兩個檔案的功能 -->
-<script>
-  // 結合 chat-script.js 和 script.js 的功能
-  document.addEventListener('DOMContentLoaded', function() {
+  </div>
+
+  <!-- Feedback 模態窗口 -->
+  <div id="feedbackModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Feedback</h2>
+      <div class="form-group">
+        <label>Topic:</label>
+        <input type="text" id="feedbackTopic">
+      </div>
+      <div class="form-group">
+        <label>Content:</label>
+        <textarea id="feedbackContent" rows="10"></textarea>
+      </div>
+      <button class="send-btn">Send</button>
+    </div>
+  </div>
+
+  <!-- About us 模態窗口 -->
+  <div id="aboutUsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>About TaiSoc</h2>
+      <div class="about-content">
+        <p>TaiSoc is a platform focused on Taiwan's social and cultural
+          exchange, dedicated to providing knowledge and information about
+          Taiwan.</p>
+        <p>Our mission is to promote understanding of Taiwan's culture,
+          society, and history, and to provide a friendly space for users to
+          learn and exchange ideas.</p>
+        <h3>Contact Us</h3>
+        <p>IG：https://www.instagram.com/gdg.ntpu</p>
+        <p>Website：https://medium.com/@ntpugdsc</p>
+        <h3>Version</h3>
+        <p>TaiSoc v1.0.0</p>
+      </div>
+    </div>
+  </div>
+  <!-- 使用內嵌 JavaScript 來整合兩個檔案的功能 -->
+  <script>
+    // 結合 chat-script.js 和 script.js 的功能
+    document.addEventListener('DOMContentLoaded', function () {
       console.log("聊天頁面已載入，初始化...");
-      
+
       // === 來自 chat-script.js 的部分 ===
       // 語言翻譯資料
       const translations = {
-          'zh-TW': {
-              // 導航欄
-              'home': '首頁',
-              'explore': '探索',
-              'history': '歷史',
-              // 按鈕
-              'new': '新對話',
-              'send': '發送',
-              // 歡迎訊息
-              'welcome1': '有關於台灣的新知識嗎？',
-              'welcome2': '問我吧...',
-              // 側邊選單
-              'feedback': '意見反饋',
-              'setting': '設定',
-              'aboutus': '關於我們',
-              // Setting 模態窗口
-              'profile': '個人資料',
-              'topic': '主題',
-              'account': '帳戶',
-              'yourname': '您的姓名:',
-              'howtocallyou': '如何稱呼您:',
-              'age': '年齡:',
-              'gender': '性別:',
-              'language': '語言:',
-              'email': '電子郵件:',
-              'changepassword': '修改密碼',
-              'logoutalldevices': '登出所有裝置',
-              'deleteyouraccount': '刪除您的帳戶',
-              'confirm': '確認',
-              'logout': '登出',
-              'delete': '刪除',
-              // Feedback 模態窗口
-              'feedbacktitle': '意見反饋',
-              'feedbacktopic': '主題:',
-              'content': '內容:',
-              'send': '發送',
-              // About us 模態窗口
-              'abouttitle': '關於 TaiSoc',
-              'aboutdescription1': 'TaiSoc 是一個專注於臺灣社會文化交流的平台，致力於提供有關臺灣的知識和資訊。',
-              'aboutdescription2': '我們的使命是促進對臺灣文化、社會和歷史的理解，並提供一個友好的對話空間，讓用戶可以學習和交流。',
-              'contactus': '聯繫我們',
-              'version': '版本',
-              // 其他提示訊息
-              'settingsaved': '設定已保存',
-              'fillallfields': '請填寫所有欄位',
-              'thankforfeedback': '感謝您的反饋！我們會盡快處理。',
-              'confirmlogout': '確定要登出所有裝置嗎？',
-              'confirmdelete': '警告：此操作將永久刪除您的帳戶和所有資料，且無法恢復！確定要繼續嗎？',
-              'selectlanguage': '請選擇語言',
-              'comingsoon': '功能即將推出',
-              'preview': '預覽',
-              'previewnotice': '這是預覽效果。點擊確認以保存設定。',
-              'error': '錯誤',
-              // 密碼修改相關
-              'currentpassword': '當前密碼:',
-              'newpassword': '新密碼:',
-              'confirmnewpassword': '確認新密碼:',
-              'updatepassword': '更新密碼',
-              'passwordmismatch': '新密碼與確認密碼不符',
-              'passwordtooshort': '新密碼長度應至少為8個字符',
-              'passwordupdated': '密碼已成功更新',
-              'passwordupdatefailed': '密碼更新失敗',
-              'erroroccurred': '發生錯誤，請稍後再試',
-              // 性別選項
-              'selectgender': '選擇性別',
-              'male': '男性',
-              'female': '女性', 
-              'non-binary': '非二元性別',
-              'other': '其他',
-              'prefer-not-to-say': '不願透露'
-          },
-          'en': {
-              // Navigation
-              'home': 'Home',
-              'explore': 'Explore',
-              'history': 'History',
-              // Buttons
-              'new': 'New',
-              'send': 'Send',
-              // Welcome messages
-              'welcome1': 'Any new knowledge about Taiwan?',
-              'welcome2': 'Ask me...',
-              // Side menu
-              'feedback': 'Feedback',
-              'setting': 'Setting',
-              'aboutus': 'About us',
-              // Setting modal
-              'profile': 'Profile',
-              'topic': 'Topic',
-              'account': 'Account',
-              'yourname': 'Your Name:',
-              'howtocallyou': 'How to call you:',
-              'age': 'Age:',
-              'gender': 'Gender:',
-              'language': 'Language:',
-              'email': 'Email:',
-              'changepassword': 'Change Password',
-              'logoutalldevices': 'Log out all devices',
-              'deleteyouraccount': 'Delete your account',
-              'confirm': 'Confirm',
-              'logout': 'Log out',
-              'delete': 'Delete',
-              // Feedback modal
-              'feedbacktitle': 'Feedback',
-              'feedbacktopic': 'Topic:',
-              'content': 'Content:',
-              'send': 'Send',
-              // About us modal
-              'abouttitle': 'About TaiSoc',
-              'aboutdescription1': 'TaiSoc is a platform focused on Taiwan\'s social and cultural exchange, dedicated to providing knowledge and information about Taiwan.',
-              'aboutdescription2': 'Our mission is to promote understanding of Taiwan\'s culture, society, and history, and to provide a friendly space for users to learn and exchange ideas.',
-              'contactus': 'Contact Us',
-              'version': 'Version',
-              // Other messages
-              'settingsaved': 'Settings saved',
-              'fillallfields': 'Please fill in all fields',
-              'thankforfeedback': 'Thank you for your feedback! We will process it as soon as possible.',
-              'confirmlogout': 'Are you sure you want to log out of all devices?',
-              'confirmdelete': 'Warning: This operation will permanently delete your account and all data, and cannot be recovered! Are you sure you want to continue?',
-              'selectlanguage': 'Please select a language',
-              'comingsoon': 'Coming soon',
-              'preview': 'Preview',
-              'previewnotice': 'This is a preview. Click Confirm to save the settings.',
-              'error': 'Error',
-              // Password change related
-              'currentpassword': 'Current Password:',
-              'newpassword': 'New Password:',
-              'confirmnewpassword': 'Confirm New Password:',
-              'updatepassword': 'Update Password',
-              'passwordmismatch': 'New password and confirmation do not match',
-              'passwordtooshort': 'New password should be at least 8 characters',
-              'passwordupdated': 'Password has been successfully updated',
-              'passwordupdatefailed': 'Password update failed',
-              'erroroccurred': 'An error occurred, please try again later',
-              // Gender options
-              'selectgender': 'Select Gender',
-              'male': 'Male',
-              'female': 'Female',
-              'non-binary': 'Non-binary',
-              'other': 'Other',
-              'prefer-not-to-say': 'Prefer not to say'
-          }
+        'zh-TW': {
+          // 導航欄
+          'home': '首頁',
+          'explore': '探索',
+          'history': '歷史',
+          // 按鈕
+          'new': '新對話',
+          'send': '發送',
+          // 歡迎訊息
+          'welcome1': '有關於台灣的新知識嗎？',
+          'welcome2': '問我吧...',
+          // 側邊選單
+          'feedback': '意見反饋',
+          'setting': '設定',
+          'aboutus': '關於我們',
+          // Setting 模態窗口
+          'profile': '個人資料',
+          'topic': '主題',
+          'account': '帳戶',
+          'yourname': '您的姓名:',
+          'howtocallyou': '如何稱呼您:',
+          'age': '年齡:',
+          'gender': '性別:',
+          'language': '語言:',
+          'email': '電子郵件:',
+          'changepassword': '修改密碼',
+          'logoutalldevices': '登出所有裝置',
+          'deleteyouraccount': '刪除您的帳戶',
+          'confirm': '確認',
+          'logout': '登出',
+          'delete': '刪除',
+          // Feedback 模態窗口
+          'feedbacktitle': '意見反饋',
+          'feedbacktopic': '主題:',
+          'content': '內容:',
+          'send': '發送',
+          // About us 模態窗口
+          'abouttitle': '關於 TaiSoc',
+          'aboutdescription1': 'TaiSoc 是一個專注於臺灣社會文化交流的平台，致力於提供有關臺灣的知識和資訊。',
+          'aboutdescription2': '我們的使命是促進對臺灣文化、社會和歷史的理解，並提供一個友好的對話空間，讓用戶可以學習和交流。',
+          'contactus': '聯繫我們',
+          'version': '版本',
+          // 其他提示訊息
+          'settingsaved': '設定已保存',
+          'fillallfields': '請填寫所有欄位',
+          'thankforfeedback': '感謝您的反饋！我們會盡快處理。',
+          'confirmlogout': '確定要登出所有裝置嗎？',
+          'confirmdelete': '警告：此操作將永久刪除您的帳戶和所有資料，且無法恢復！確定要繼續嗎？',
+          'selectlanguage': '請選擇語言',
+          'comingsoon': '功能即將推出',
+          'preview': '預覽',
+          'previewnotice': '這是預覽效果。點擊確認以保存設定。',
+          'error': '錯誤',
+          // 密碼修改相關
+          'currentpassword': '當前密碼:',
+          'newpassword': '新密碼:',
+          'confirmnewpassword': '確認新密碼:',
+          'updatepassword': '更新密碼',
+          'passwordmismatch': '新密碼與確認密碼不符',
+          'passwordtooshort': '新密碼長度應至少為8個字符',
+          'passwordupdated': '密碼已成功更新',
+          'passwordupdatefailed': '密碼更新失敗',
+          'erroroccurred': '發生錯誤，請稍後再試',
+          // 性別選項
+          'selectgender': '選擇性別',
+          'male': '男性',
+          'female': '女性',
+          'non-binary': '非二元性別',
+          'other': '其他',
+          'prefer-not-to-say': '不願透露'
+        },
+        'en': {
+          // Navigation
+          'home': 'Home',
+          'explore': 'Explore',
+          'history': 'History',
+          // Buttons
+          'new': 'New',
+          'send': 'Send',
+          // Welcome messages
+          'welcome1': 'Any new knowledge about Taiwan?',
+          'welcome2': 'Ask me...',
+          // Side menu
+          'feedback': 'Feedback',
+          'setting': 'Setting',
+          'aboutus': 'About us',
+          // Setting modal
+          'profile': 'Profile',
+          'topic': 'Topic',
+          'account': 'Account',
+          'yourname': 'Your Name:',
+          'howtocallyou': 'How to call you:',
+          'age': 'Age:',
+          'gender': 'Gender:',
+          'language': 'Language:',
+          'email': 'Email:',
+          'changepassword': 'Change Password',
+          'logoutalldevices': 'Log out all devices',
+          'deleteyouraccount': 'Delete your account',
+          'confirm': 'Confirm',
+          'logout': 'Log out',
+          'delete': 'Delete',
+          // Feedback modal
+          'feedbacktitle': 'Feedback',
+          'feedbacktopic': 'Topic:',
+          'content': 'Content:',
+          'send': 'Send',
+          // About us modal
+          'abouttitle': 'About TaiSoc',
+          'aboutdescription1': 'TaiSoc is a platform focused on Taiwan\'s social and cultural exchange, dedicated to providing knowledge and information about Taiwan.',
+          'aboutdescription2': 'Our mission is to promote understanding of Taiwan\'s culture, society, and history, and to provide a friendly space for users to learn and exchange ideas.',
+          'contactus': 'Contact Us',
+          'version': 'Version',
+          // Other messages
+          'settingsaved': 'Settings saved',
+          'fillallfields': 'Please fill in all fields',
+          'thankforfeedback': 'Thank you for your feedback! We will process it as soon as possible.',
+          'confirmlogout': 'Are you sure you want to log out of all devices?',
+          'confirmdelete': 'Warning: This operation will permanently delete your account and all data, and cannot be recovered! Are you sure you want to continue?',
+          'selectlanguage': 'Please select a language',
+          'comingsoon': 'Coming soon',
+          'preview': 'Preview',
+          'previewnotice': 'This is a preview. Click Confirm to save the settings.',
+          'error': 'Error',
+          // Password change related
+          'currentpassword': 'Current Password:',
+          'newpassword': 'New Password:',
+          'confirmnewpassword': 'Confirm New Password:',
+          'updatepassword': 'Update Password',
+          'passwordmismatch': 'New password and confirmation do not match',
+          'passwordtooshort': 'New password should be at least 8 characters',
+          'passwordupdated': 'Password has been successfully updated',
+          'passwordupdatefailed': 'Password update failed',
+          'erroroccurred': 'An error occurred, please try again later',
+          // Gender options
+          'selectgender': 'Select Gender',
+          'male': 'Male',
+          'female': 'Female',
+          'non-binary': 'Non-binary',
+          'other': 'Other',
+          'prefer-not-to-say': 'Prefer not to say'
+        }
       };
-  
+
       // 默認語言
       let currentLanguage = localStorage.getItem('userLanguage') || 'en';
-  
+
       // 語言預覽函數
       function previewLanguage(lang) {
-          if (lang && translations[lang]) {
-              // 顯示預覽提示
-              const languageGroup = document.getElementById('userLanguage').closest('.form-group');
-              if (languageGroup) {
-                  // 移除舊的提示（如果有）
-                  const oldNotice = document.getElementById('language-preview-notice');
-                  if (oldNotice) {
-                      oldNotice.remove();
-                  }
-                  
-                  // 創建新的提示
-                  const previewNotice = document.createElement('div');
-                  previewNotice.id = 'language-preview-notice';
-                  previewNotice.textContent = translations[lang]['previewnotice'] || 'This is a preview. Click Confirm to save.';
-                  languageGroup.appendChild(previewNotice);
-              }
-              
-              // 臨時更新界面語言，但不保存
-              updateUILanguage(lang, true);
+        if (lang && translations[lang]) {
+          // 顯示預覽提示
+          const languageGroup = document.getElementById('userLanguage').closest('.form-group');
+          if (languageGroup) {
+            // 移除舊的提示（如果有）
+            const oldNotice = document.getElementById('language-preview-notice');
+            if (oldNotice) {
+              oldNotice.remove();
+            }
+
+            // 創建新的提示
+            const previewNotice = document.createElement('div');
+            previewNotice.id = 'language-preview-notice';
+            previewNotice.textContent = translations[lang]['previewnotice'] || 'This is a preview. Click Confirm to save.';
+            languageGroup.appendChild(previewNotice);
           }
+
+          // 臨時更新界面語言，但不保存
+          updateUILanguage(lang, true);
+        }
       }
-  
+
       // 更新界面語言的函數
       function updateUILanguage(lang, isPreview = false) {
-          if (!translations[lang]) {
-              console.error(`Language '${lang}' not supported`);
-              return;
+        if (!translations[lang]) {
+          console.error(`Language '${lang}' not supported`);
+          return;
+        }
+
+        if (!isPreview) {
+          currentLanguage = lang;
+          localStorage.setItem('userLanguage', lang);
+        }
+
+        const t = translations[lang];
+
+        // 更新導航欄
+        document.querySelectorAll('.nav-label').forEach(el => {
+          const key = el.textContent.toLowerCase();
+          if (t[key]) {
+            el.textContent = t[key];
           }
-          
-          if (!isPreview) {
-              currentLanguage = lang;
-              localStorage.setItem('userLanguage', lang);
+        });
+
+        // 更新按鈕文字
+        if (document.querySelector('.button-text')) {
+          document.querySelector('.button-text').textContent = t['new'];
+        }
+
+        // 更新歡迎訊息
+        const welcomeTexts = document.querySelectorAll('.welcome-text');
+        if (welcomeTexts.length >= 2) {
+          welcomeTexts[0].textContent = t['welcome1'];
+          welcomeTexts[1].textContent = t['welcome2'];
+        }
+
+        // 更新側邊選單項目
+        document.querySelectorAll('.menu-text').forEach(el => {
+          const key = el.textContent.toLowerCase().replace(/\s+/g, '');
+          if (t[key]) {
+            el.textContent = t[key];
           }
-          
-          const t = translations[lang];
-          
-          // 更新導航欄
-          document.querySelectorAll('.nav-label').forEach(el => {
-              const key = el.textContent.toLowerCase();
-              if (t[key]) {
-                  el.textContent = t[key];
-              }
+        });
+
+        // 更新 Setting 模態窗口
+        const settingModal = document.getElementById('settingModal');
+        if (settingModal) {
+          // 標題
+          settingModal.querySelector('h2').textContent = t['setting'];
+
+          // 標籤頁
+          const tabs = settingModal.querySelectorAll('.tab');
+          if (tabs.length >= 3) {
+            tabs[0].textContent = t['profile'];
+            tabs[1].textContent = t['topic'];
+            tabs[2].textContent = t['account'];
+          }
+
+          // 表單標籤
+          settingModal.querySelectorAll('label').forEach(label => {
+            const labelText = label.textContent.trim().toLowerCase().replace(/:/g, '').replace(/\s+/g, '');
+
+            if (t[labelText]) {
+              label.textContent = t[labelText];
+            }
           });
-          
-          // 更新按鈕文字
-          if (document.querySelector('.button-text')) {
-              document.querySelector('.button-text').textContent = t['new'];
-          }
-          
-          // 更新歡迎訊息
-          const welcomeTexts = document.querySelectorAll('.welcome-text');
-          if (welcomeTexts.length >= 2) {
-              welcomeTexts[0].textContent = t['welcome1'];
-              welcomeTexts[1].textContent = t['welcome2'];
-          }
-          
-          // 更新側邊選單項目
-          document.querySelectorAll('.menu-text').forEach(el => {
-              const key = el.textContent.toLowerCase().replace(/\s+/g, '');
-              if (t[key]) {
-                  el.textContent = t[key];
+
+          // 更新性別選項
+          const genderSelect = document.getElementById('userGender');
+          if (genderSelect) {
+            const options = genderSelect.options;
+            for (let i = 0; i < options.length; i++) {
+              const optionValue = options[i].value.toLowerCase();
+              if (optionValue === '') {
+                options[i].textContent = t['selectgender'];
+              } else if (t[optionValue]) {
+                options[i].textContent = t[optionValue];
               }
+            }
+          }
+
+
+          // 更新帳戶操作區域
+          const accountActions = settingModal.querySelectorAll('.account-action');
+          if (accountActions.length >= 2) {
+            accountActions[0].querySelector('span').textContent = t['logoutalldevices'];
+            accountActions[0].querySelector('button').textContent = t['logout'];
+            accountActions[1].querySelector('span').textContent = t['deleteyouraccount'];
+            accountActions[1].querySelector('button').textContent = t['delete'];
+          }
+
+          // 更新確認按鈕
+          settingModal.querySelectorAll('.confirm-btn').forEach(btn => {
+            btn.textContent = t['confirm'];
           });
-          
-          // 更新 Setting 模態窗口
-          const settingModal = document.getElementById('settingModal');
-          if (settingModal) {
-              // 標題
-              settingModal.querySelector('h2').textContent = t['setting'];
-              
-              // 標籤頁
-              const tabs = settingModal.querySelectorAll('.tab');
-              if (tabs.length >= 3) {
-                  tabs[0].textContent = t['profile'];
-                  tabs[1].textContent = t['topic'];
-                  tabs[2].textContent = t['account'];
-              }
-              
-              // 表單標籤
-              settingModal.querySelectorAll('label').forEach(label => {
-                  const labelText = label.textContent.trim().toLowerCase().replace(/:/g, '').replace(/\s+/g, '');
-                  
-                  if (t[labelText]) {
-                      label.textContent = t[labelText];
-                  }
-              });
-              
-              // 更新性別選項
-              const genderSelect = document.getElementById('userGender');
-              if (genderSelect) {
-                  const options = genderSelect.options;
-                  for (let i = 0; i < options.length; i++) {
-                      const optionValue = options[i].value.toLowerCase();
-                      if (optionValue === '') {
-                          options[i].textContent = t['selectgender'];
-                      } else if (t[optionValue]) {
-                          options[i].textContent = t[optionValue];
-                      }
-                  }
-              }
-              
-              
-              // 更新帳戶操作區域
-              const accountActions = settingModal.querySelectorAll('.account-action');
-              if (accountActions.length >= 2) {
-                  accountActions[0].querySelector('span').textContent = t['logoutalldevices'];
-                  accountActions[0].querySelector('button').textContent = t['logout'];
-                  accountActions[1].querySelector('span').textContent = t['deleteyouraccount'];
-                  accountActions[1].querySelector('button').textContent = t['delete'];
-              }
-              
-              // 更新確認按鈕
-              settingModal.querySelectorAll('.confirm-btn').forEach(btn => {
-                  btn.textContent = t['confirm'];
-              });
+        }
+
+        // 更新 Feedback 模態窗口
+        const feedbackModal = document.getElementById('feedbackModal');
+        if (feedbackModal) {
+          feedbackModal.querySelector('h2').textContent = t['feedbacktitle'];
+          const labels = feedbackModal.querySelectorAll('label');
+          if (labels.length >= 2) {
+            labels[0].textContent = t['feedbacktopic'];
+            labels[1].textContent = t['content'];
           }
-          
-          // 更新 Feedback 模態窗口
-          const feedbackModal = document.getElementById('feedbackModal');
-          if (feedbackModal) {
-              feedbackModal.querySelector('h2').textContent = t['feedbacktitle'];
-              const labels = feedbackModal.querySelectorAll('label');
-              if (labels.length >= 2) {
-                  labels[0].textContent = t['feedbacktopic'];
-                  labels[1].textContent = t['content'];
-              }
-              feedbackModal.querySelector('.send-btn').textContent = t['send'];
+          feedbackModal.querySelector('.send-btn').textContent = t['send'];
+        }
+
+        // 更新 About us 模態窗口
+        const aboutUsModal = document.getElementById('aboutUsModal');
+        if (aboutUsModal) {
+          aboutUsModal.querySelector('h2').textContent = t['abouttitle'];
+          const paragraphs = aboutUsModal.querySelectorAll('.about-content p');
+          if (paragraphs.length >= 4) {
+            paragraphs[0].textContent = t['aboutdescription1'];
+            paragraphs[1].textContent = t['aboutdescription2'];
           }
-          
-          // 更新 About us 模態窗口
-          const aboutUsModal = document.getElementById('aboutUsModal');
-          if (aboutUsModal) {
-              aboutUsModal.querySelector('h2').textContent = t['abouttitle'];
-              const paragraphs = aboutUsModal.querySelectorAll('.about-content p');
-              if (paragraphs.length >= 4) {
-                  paragraphs[0].textContent = t['aboutdescription1'];
-                  paragraphs[1].textContent = t['aboutdescription2'];
-              }
-              const headings = aboutUsModal.querySelectorAll('.about-content h3');
-              if (headings.length >= 2) {
-                  headings[0].textContent = t['contactus'];
-                  headings[1].textContent = t['version'];
-              }
+          const headings = aboutUsModal.querySelectorAll('.about-content h3');
+          if (headings.length >= 2) {
+            headings[0].textContent = t['contactus'];
+            headings[1].textContent = t['version'];
           }
+        }
       }
-  
+
       // 從localStorage獲取語言設置並應用
       const savedLanguage = localStorage.getItem('userLanguage');
       if (savedLanguage && translations[savedLanguage]) {
-          currentLanguage = savedLanguage;
-          updateUILanguage(savedLanguage);
+        currentLanguage = savedLanguage;
+        updateUILanguage(savedLanguage);
       }
-      
+
       // 獲取DOM元素
       const messageInput = document.getElementById("message");
       const chatHistory = document.getElementById("chat-history");
@@ -771,507 +617,522 @@
       const sendButton = document.getElementById("send-btn");
       const dotsButton = document.getElementById("dotsButton");
       const dotsMenu = document.getElementById("dotsMenu");
-      
+
       /* ------------------------------
          1. 聊天功能 - 來自 script.js 的部分
       ------------------------------ */
       let historyList = JSON.parse(localStorage.getItem("chatHistoryList")) || [];
       let currentChatIndex = null;
-      
+
       function saveToLocalStorage() {
-          localStorage.setItem("chatHistoryList", JSON.stringify(historyList));
+        localStorage.setItem("chatHistoryList", JSON.stringify(historyList));
       }
-      
+
       function createHistoryButton(title, index) {
-          const button = document.createElement("button");
-          button.textContent = title;
-          button.classList.add("nav-item", "history-button");
-          button.style.justifyContent = "flex-start";
-          button.style.fontSize = "14px";
-          button.style.padding = "8px 12px";
-          button.addEventListener("click", () => {
-              currentChatIndex = index;
-              renderChat();
-              renderSidebarButtons();
-          });
-          return button;
+        const button = document.createElement("button");
+        button.textContent = title;
+        button.classList.add("nav-item", "history-button");
+        button.style.justifyContent = "flex-start";
+        button.style.fontSize = "14px";
+        button.style.padding = "8px 12px";
+        button.addEventListener("click", () => {
+          currentChatIndex = index;
+          renderChat();
+          renderSidebarButtons();
+        });
+        return button;
       }
-      
+
       // 搜尋聊天紀錄 + 滾動到關鍵字訊息
       const searchInput = document.getElementById("searchInput");
       if (searchInput) {
-          searchInput.addEventListener("input", function (e) {
-              const keyword = e.target.value.trim();
-              const allChats = JSON.parse(localStorage.getItem("chatHistoryList")) || [];
-              const historyListContainer = document.getElementById("history-list");
-              
-              if (!keyword) {
-                  renderSidebarButtons(); // 沒有輸入關鍵字就顯示所有紀錄
-                  return;
-              }
-  
-              const filtered = allChats
-                  .map((chat, idx) => ({ chat, idx }))
-                  .filter(({ chat }) =>
-                      chat.some(msg => msg.text && msg.text.includes(keyword))
-                  );
-  
-              historyListContainer.innerHTML = "";
-  
-              if (filtered.length === 0) {
-                  const noResult = document.createElement("div");
-                  noResult.textContent = "沒有符合的對話紀錄";
-                  noResult.style.color = "#888";
-                  noResult.style.margin = "8px";
-                  historyListContainer.prepend(noResult);
-                  return;
-              }
-  
-              filtered.forEach(({ chat, idx }) => {
-                  const title = chat[0]?.text?.slice(0, 10) || "Untitled";
-                  const button = createHistoryButton(title, idx);
-                  button.addEventListener("click", () => {
-                      currentChatIndex = idx;
-                      renderChat();
-                      setTimeout(() => {
-                          scrollToKeyword(keyword);
-                      }, 100); // 等聊天內容載入後再捲動
-                  });
-                  historyListContainer.prepend(button);
-              });
-          });
-      }
-  
-      function scrollToKeyword(keyword) {
-          const messages = document.querySelectorAll("#chat-history .user-message, #chat-history .assistant-message");
-  
-          messages.forEach(msg => msg.classList.remove("highlight-message"));
-  
-          for (const msg of messages) {
-              if (msg.textContent.includes(keyword)) {
-                  msg.classList.add("highlight-message");
-                  msg.scrollIntoView({ behavior: "smooth", block: "center" });
-                  break;
-              }
-          }
-      }
-  
-      function renderSidebarButtons() {
+        searchInput.addEventListener("input", function (e) {
+          const keyword = e.target.value.trim();
+          const allChats = JSON.parse(localStorage.getItem("chatHistoryList")) || [];
           const historyListContainer = document.getElementById("history-list");
-          if (!historyListContainer) return;
-          
-          historyListContainer.innerHTML = "";
-          historyList.forEach((chat, idx) => {
-              const title = chat[0]?.text?.slice(0, 10) || "Untitled";
-              const btn = createHistoryButton(title, idx);
-              if (idx === currentChatIndex) btn.classList.add("active");
-              historyListContainer.prepend(btn);
-          });
-      }
-  
-      function renderChat() {
-          if (!chatHistory) return;
-          
-          chatHistory.innerHTML = "";
-          if (welcomeSection) welcomeSection.style.display = "none";
-  
-          if (currentChatIndex === null || !historyList[currentChatIndex]) {
-              if (welcomeSection) welcomeSection.style.display = "flex";
-              return;
+
+          if (!keyword) {
+            renderSidebarButtons(); // 沒有輸入關鍵字就顯示所有紀錄
+            return;
           }
-  
-          const chat = historyList[currentChatIndex];
-          chat.forEach((msg) => {
-              const section = document.createElement("section");
-              section.classList.add("chat-container");
-              section.innerHTML = `
+
+          const filtered = allChats
+            .map((chat, idx) => ({ chat, idx }))
+            .filter(({ chat }) =>
+              chat.some(msg => msg.text && msg.text.includes(keyword))
+            );
+
+          historyListContainer.innerHTML = "";
+
+          if (filtered.length === 0) {
+            const noResult = document.createElement("div");
+            noResult.textContent = "沒有符合的對話紀錄";
+            noResult.style.color = "#888";
+            noResult.style.margin = "8px";
+            historyListContainer.prepend(noResult);
+            return;
+          }
+
+          filtered.forEach(({ chat, idx }) => {
+            const title = chat[0]?.text?.slice(0, 10) || "Untitled";
+            const button = createHistoryButton(title, idx);
+            button.addEventListener("click", () => {
+              currentChatIndex = idx;
+              renderChat();
+              setTimeout(() => {
+                scrollToKeyword(keyword);
+              }, 100); // 等聊天內容載入後再捲動
+            });
+            historyListContainer.prepend(button);
+          });
+        });
+      }
+
+      function scrollToKeyword(keyword) {
+        const messages = document.querySelectorAll("#chat-history .user-message, #chat-history .assistant-message");
+
+        messages.forEach(msg => msg.classList.remove("highlight-message"));
+
+        for (const msg of messages) {
+          if (msg.textContent.includes(keyword)) {
+            msg.classList.add("highlight-message");
+            msg.scrollIntoView({ behavior: "smooth", block: "center" });
+            break;
+          }
+        }
+      }
+
+      function renderSidebarButtons() {
+        const historyListContainer = document.getElementById("history-list");
+        if (!historyListContainer) return;
+
+        historyListContainer.innerHTML = "";
+        historyList.forEach((chat, idx) => {
+          const title = chat[0]?.text?.slice(0, 10) || "Untitled";
+          const btn = createHistoryButton(title, idx);
+          if (idx === currentChatIndex) btn.classList.add("active");
+          historyListContainer.prepend(btn);
+        });
+      }
+
+      function renderChat() {
+        if (!chatHistory) return;
+
+        chatHistory.innerHTML = "";
+        if (welcomeSection) welcomeSection.style.display = "none";
+
+        if (currentChatIndex === null || !historyList[currentChatIndex]) {
+          if (welcomeSection) welcomeSection.style.display = "flex";
+          return;
+        }
+
+        const chat = historyList[currentChatIndex];
+        chat.forEach((msg) => {
+          const section = document.createElement("section");
+          section.classList.add("chat-container");
+          section.innerHTML = `
                   <div class="${msg.sender === 'user' ? 'user-message-container' : 'assistant-message-container'}">
                       <p class="${msg.sender === 'user' ? 'user-message' : 'assistant-message'}">${msg.text}</p>
                   </div>
               `;
-              chatHistory.appendChild(section);
-          });
-  
-          chatHistory.scrollTop = chatHistory.scrollHeight;
+          chatHistory.appendChild(section);
+        });
+
+        chatHistory.scrollTop = chatHistory.scrollHeight;
       }
-  
+
       async function sendMessage() {
-          if (!messageInput || !chatHistory) return;
-          
-          const userMessage = messageInput.value.trim();
-          if (userMessage === "") return;
-          
-          // 第一次送出訊息時，隱藏歡迎區塊
-          if (welcomeSection) {
-              welcomeSection.style.display = "none";
-          }
-  
-          // 建立新對話或使用現有對話
-          if (currentChatIndex === null) {
-              currentChatIndex = historyList.length;
-              historyList.push([]);
-          }
-  
-          // 儲存並顯示使用者訊息
-          historyList[currentChatIndex].push({ sender: "user", text: userMessage });
-          messageInput.value = "";
-          renderChat();
-          saveToLocalStorage();
-  
-          try {
-              // 顯示 AI 讀取中訊息
-              const loadingSection = document.createElement("section");
-              loadingSection.classList.add("chat-container");
-              loadingSection.innerHTML = `
+        if (!messageInput || !chatHistory) return;
+
+        const userMessage = messageInput.value.trim();
+        if (userMessage === "") return;
+
+        // 第一次送出訊息時，隱藏歡迎區塊
+        if (welcomeSection) {
+          welcomeSection.style.display = "none";
+        }
+
+        // 建立新對話或使用現有對話
+        if (currentChatIndex === null) {
+          currentChatIndex = historyList.length;
+          historyList.push([]);
+        }
+
+        // 儲存並顯示使用者訊息
+        historyList[currentChatIndex].push({ sender: "user", text: userMessage });
+        messageInput.value = "";
+        renderChat();
+        saveToLocalStorage();
+
+        try {
+          // 顯示 AI 讀取中訊息
+          const loadingSection = document.createElement("section");
+          loadingSection.classList.add("chat-container");
+          loadingSection.innerHTML = `
                   <div class="assistant-message-container">
                       <p class="assistant-message">思考中...</p>
                   </div>
               `;
-              chatHistory.appendChild(loadingSection);
-              chatHistory.scrollTop = chatHistory.scrollHeight;
-  
-              // 呼叫後端 /chat API
-              const response = await fetch("/chat", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ message: userMessage })
-              });
-              const result = await response.json();
-  
-              // 移除讀取中訊息
-              chatHistory.removeChild(loadingSection);
-  
-              // 儲存並顯示 AI 回應
-              historyList[currentChatIndex].push({ sender: "bot", text: result.reply });
-              renderChat();
-              saveToLocalStorage();
-              
-              // 更新側邊欄標題
-              renderSidebarButtons();
-          } catch (error) {
-              // 移除讀取中訊息
-              if (loadingSection && loadingSection.parentNode) {
-                  chatHistory.removeChild(loadingSection);
-              }
-  
-              const t = translations[currentLanguage];
-              // 顯示錯誤訊息
-              historyList[currentChatIndex].push({ sender: "bot", text: `⚠️ ${t['error']}：${error}` });
-              renderChat();
-              saveToLocalStorage();
+          chatHistory.appendChild(loadingSection);
+          chatHistory.scrollTop = chatHistory.scrollHeight;
+
+          // 呼叫後端 /chat API
+          const response = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage })
+          });
+          const result = await response.json();
+
+          // 移除讀取中訊息
+          chatHistory.removeChild(loadingSection);
+
+          // 儲存並顯示 AI 回應
+          historyList[currentChatIndex].push({ sender: "bot", text: result.reply });
+          renderChat();
+          saveToLocalStorage();
+
+          // 更新側邊欄標題
+          renderSidebarButtons();
+        } catch (error) {
+          // 移除讀取中訊息
+          if (loadingSection && loadingSection.parentNode) {
+            chatHistory.removeChild(loadingSection);
           }
+
+          const t = translations[currentLanguage];
+          // 顯示錯誤訊息
+          historyList[currentChatIndex].push({ sender: "bot", text: `⚠️ ${t['error']}：${error}` });
+          renderChat();
+          saveToLocalStorage();
+        }
       }
-  
+
       /* ------------------------------
          2. 三點選單功能
       ------------------------------ */
       if (dotsButton && dotsMenu) {
-          dotsButton.addEventListener("click", (event) => {
-              // 切換選單顯示或隱藏
-              event.stopPropagation(); // 防止事件冒泡
-              dotsMenu.style.display = dotsMenu.style.display === "block" ? "none" : "block";
-          });
-  
-          // 當使用者點擊頁面其他地方時，自動隱藏選單
-          document.addEventListener("click", (event) => {
-              if (!dotsButton.contains(event.target) && !dotsMenu.contains(event.target)) {
-                  dotsMenu.style.display = "none";
-              }
-          });
+        dotsButton.addEventListener("click", (event) => {
+          // 切換選單顯示或隱藏
+          event.stopPropagation(); // 防止事件冒泡
+          dotsMenu.style.display = dotsMenu.style.display === "block" ? "none" : "block";
+        });
+
+        // 當使用者點擊頁面其他地方時，自動隱藏選單
+        document.addEventListener("click", (event) => {
+          if (!dotsButton.contains(event.target) && !dotsMenu.contains(event.target)) {
+            dotsMenu.style.display = "none";
+          }
+        });
       }
-      
+
       /* ------------------------------
          3. New按鈕功能
       ------------------------------ */
       const newButton = document.querySelector(".new-button");
       if (newButton) {
-          newButton.addEventListener("click", () => {
-              // 重設當前對話索引
-              currentChatIndex = null;
-              
-              // 清空輸入欄位
-              if (messageInput) {
-                  messageInput.value = "";
-              }
-              
-              // 清空聊天記錄
-              if (chatHistory) {
-                  chatHistory.innerHTML = "";
-              }
-              
-              // 顯示歡迎區塊
-              if (welcomeSection) {
-                  welcomeSection.style.display = "flex";
-              }
-          });
+        newButton.addEventListener("click", () => {
+          // 重設當前對話索引
+          currentChatIndex = null;
+
+          // 清空輸入欄位
+          if (messageInput) {
+            messageInput.value = "";
+          }
+
+          // 清空聊天記錄
+          if (chatHistory) {
+            chatHistory.innerHTML = "";
+          }
+
+          // 顯示歡迎區塊
+          if (welcomeSection) {
+            welcomeSection.style.display = "flex";
+          }
+        });
       }
-      
+
       /* ------------------------------
          4. 模態窗口功能 - Setting, Feedback, About us
       ------------------------------ */
       // 顯示 Setting 模態窗口
       function showSettingModal() {
-          const modal = document.getElementById("settingModal");
-          if (!modal) return;
-          
-          modal.style.display = "block";
-          
-          // 設置當前語言
-          const userLanguageSelect = document.getElementById('userLanguage');
-          if (userLanguageSelect) {
-              userLanguageSelect.value = currentLanguage;
-          }
-          
-          // 綁定關閉按鈕事件
-          const closeButton = modal.querySelector(".close-button");
-          if (closeButton) {
-              closeButton.onclick = function() {
-                  modal.style.display = "none";
-                  
-                  // 如果使用者沒有確認變更，恢復原始語言設定
-                  if (userLanguageSelect && userLanguageSelect.value !== currentLanguage) {
-                      updateUILanguage(currentLanguage);
-                  }
-              };
-          }
-          
-          // 點擊模態窗口外部關閉
-          window.onclick = function(event) {
-              if (event.target === modal) {
-                  modal.style.display = "none";
-                  
-                  // 如果使用者沒有確認變更，恢復原始語言設定
-                  if (userLanguageSelect && userLanguageSelect.value !== currentLanguage) {
-                      updateUILanguage(currentLanguage);
-                  }
-              }
+        const modal = document.getElementById("settingModal");
+        if (!modal) return;
+
+        modal.style.display = "block";
+
+        // 設置當前語言
+        const userLanguageSelect = document.getElementById('userLanguage');
+        if (userLanguageSelect) {
+          userLanguageSelect.value = currentLanguage;
+        }
+
+        // 綁定關閉按鈕事件
+        const closeButton = modal.querySelector(".close-button");
+        if (closeButton) {
+          closeButton.onclick = function () {
+            modal.style.display = "none";
+
+            // 如果使用者沒有確認變更，恢復原始語言設定
+            if (userLanguageSelect && userLanguageSelect.value !== currentLanguage) {
+              updateUILanguage(currentLanguage);
+            }
           };
-          
-          // 標籤頁切換
-          const profileTab = document.getElementById("profileTab");
-          const topicTab = document.getElementById("topicTab");
-          const accountTab = document.getElementById("accountTab");
-          
-          const profileContent = document.getElementById("profileContent");
-          const topicContent = document.getElementById("topicContent");
-          const accountContent = document.getElementById("accountContent");
-          
-          if (profileTab && topicTab && accountTab && profileContent && topicContent && accountContent) {
-              profileTab.onclick = function() {
-                  profileContent.style.display = "block";
-                  topicContent.style.display = "none";
-                  accountContent.style.display = "none";
-                  
-                  profileTab.classList.add("active");
-                  topicTab.classList.remove("active");
-                  accountTab.classList.remove("active");
-              };
-              
-              topicTab.onclick = function() {
-                  profileContent.style.display = "none";
-                  topicContent.style.display = "block";
-                  accountContent.style.display = "none";
-                  
-                  profileTab.classList.remove("active");
-                  topicTab.classList.add("active");
-                  accountTab.classList.remove("active");
-              };
-              
-              accountTab.onclick = function() {
-                  profileContent.style.display = "none";
-                  topicContent.style.display = "none";
-                  accountContent.style.display = "block";
-                  
-                  profileTab.classList.remove("active");
-                  topicTab.classList.remove("active");
-                  accountTab.classList.add("active");
-              };
+        }
+
+        // 點擊模態窗口外部關閉
+        window.onclick = function (event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+
+            // 如果使用者沒有確認變更，恢復原始語言設定
+            if (userLanguageSelect && userLanguageSelect.value !== currentLanguage) {
+              updateUILanguage(currentLanguage);
+            }
           }
-          
-          // 處理表單提交
-          const confirmButtons = modal.querySelectorAll(".confirm-btn");
-          confirmButtons.forEach(button => {
-              button.onclick = function() {
-                  const parentContent = button.closest('.tab-content');
-                  
-                  // 如果是 Topic 標籤頁
-                  if (parentContent && parentContent.id === 'topicContent') {
-                      const selectedLanguage = document.getElementById('userLanguage').value;
-                      if (selectedLanguage) {
-                          // 更新界面語言並保存設置
-                          updateUILanguage(selectedLanguage);
-                      }
-                  }
-                  
-                  const t = translations[currentLanguage];
-                  alert(t['settingsaved']);
-                  modal.style.display = "none";
-              };
-          });
-          
-          // 處理登出
-          const logoutBtn = modal.querySelector(".logout-btn");
-          if (logoutBtn) {
-              logoutBtn.onclick = function() {
-                  const t = translations[currentLanguage];
-                  if (confirm(t['confirmlogout'])) {
-                      // 這裡可以添加登出邏輯
-                      window.location.href = "/";
-                  }
-              };
-          }
-          
-          // 處理刪除帳戶
-          const deleteBtn = modal.querySelector(".delete-btn");
-          if (deleteBtn) {
-              deleteBtn.onclick = function() {
-                  const t = translations[currentLanguage];
-                  if (confirm(t['confirmdelete'])) {
-                      // 這裡可以添加刪除帳戶邏輯
-                      window.location.href = "/";
-                  }
-              };
-          }
+        };
+
+        // 標籤頁切換
+        const profileTab = document.getElementById("profileTab");
+        const topicTab = document.getElementById("topicTab");
+        const accountTab = document.getElementById("accountTab");
+
+        const profileContent = document.getElementById("profileContent");
+        const topicContent = document.getElementById("topicContent");
+        const accountContent = document.getElementById("accountContent");
+
+        if (profileTab && topicTab && accountTab && profileContent && topicContent && accountContent) {
+          profileTab.onclick = function () {
+            profileContent.style.display = "block";
+            topicContent.style.display = "none";
+            accountContent.style.display = "none";
+
+            profileTab.classList.add("active");
+            topicTab.classList.remove("active");
+            accountTab.classList.remove("active");
+          };
+
+          topicTab.onclick = function () {
+            profileContent.style.display = "none";
+            topicContent.style.display = "block";
+            accountContent.style.display = "none";
+
+            profileTab.classList.remove("active");
+            topicTab.classList.add("active");
+            accountTab.classList.remove("active");
+          };
+
+          accountTab.onclick = function () {
+            profileContent.style.display = "none";
+            topicContent.style.display = "none";
+            accountContent.style.display = "block";
+
+            profileTab.classList.remove("active");
+            topicTab.classList.remove("active");
+            accountTab.classList.add("active");
+          };
+        }
+
+        // 處理表單提交
+        const confirmButtons = modal.querySelectorAll(".confirm-btn");
+        confirmButtons.forEach(button => {
+          button.onclick = function () {
+            const parentContent = button.closest('.tab-content');
+
+            // 如果是 Topic 標籤頁
+            if (parentContent && parentContent.id === 'topicContent') {
+              const selectedLanguage = document.getElementById('userLanguage').value;
+              if (selectedLanguage) {
+                // 更新界面語言並保存設置
+                updateUILanguage(selectedLanguage);
+              }
+            }
+
+            const t = translations[currentLanguage];
+            alert(t['settingsaved']);
+            modal.style.display = "none";
+          };
+        });
+
+        // 處理登出
+        const logoutBtn = modal.querySelector(".logout-btn");
+        if (logoutBtn) {
+          logoutBtn.onclick = function () {
+            const t = translations[currentLanguage];
+            if (confirm(t['confirmlogout'])) {
+              // 這裡可以添加登出邏輯
+              window.location.href = "/";
+            }
+          };
+        }
+
+        // 處理刪除帳戶
+        const deleteBtn = modal.querySelector(".delete-btn");
+        if (deleteBtn) {
+          deleteBtn.onclick = function () {
+            const t = translations[currentLanguage];
+            if (confirm(t['confirmdelete'])) {
+              // 這裡可以添加刪除帳戶邏輯
+              window.location.href = "/";
+            }
+          };
+        }
       }
-  
+
       // 顯示 Feedback 模態窗口
       function showFeedbackModal() {
-          const modal = document.getElementById("feedbackModal");
-          if (!modal) return;
-          
-          modal.style.display = "block";
-          
-          // 綁定關閉按鈕事件
-          const closeButton = modal.querySelector(".close-button");
-          if (closeButton) {
-              closeButton.onclick = function() {
-                  modal.style.display = "none";
-              };
+        const modal = document.getElementById("feedbackModal");
+        modal.style.display = "block";
+
+        // 綁定關閉按鈕事件
+        const closeButton = modal.querySelector(".close-button");
+        closeButton.onclick = function () {
+          modal.style.display = "none";
+        };
+
+        // 點擊模態窗口外部關閉
+        window.onclick = function (event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
           }
-          
-          // 點擊模態窗口外部關閉
-          window.onclick = function(event) {
-              if (event.target === modal) {
-                  modal.style.display = "none";
+        };
+
+        // 發送反饋
+        const sendButton = modal.querySelector(".send-btn");
+        sendButton.onclick = function () {
+          const topic = document.getElementById("feedbackTopic").value;
+          const content = document.getElementById("feedbackContent").value;
+
+          const t = translations[currentLanguage];
+
+          if (!topic || !content) {
+            alert(t['fillallfields']);
+            return;
+          }
+
+          // 发送反馈到后端
+          fetch('/api/submit-feedback', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              topic: topic,
+              content: content
+              // 如果有用户email，可以添加: email: userEmail
+            })
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert(t['thankforfeedback']);
+                modal.style.display = "none";
+
+                // 清空表单
+                document.getElementById("feedbackTopic").value = "";
+                document.getElementById("feedbackContent").value = "";
+              } else {
+                alert(data.message || '提交反馈失败');
               }
-          };
-          
-          // 發送反饋
-          const sendButton = modal.querySelector(".send-btn");
-          if (sendButton) {
-              sendButton.onclick = function() {
-                  const topic = document.getElementById("feedbackTopic").value;
-                  const content = document.getElementById("feedbackContent").value;
-                  
-                  const t = translations[currentLanguage];
-                  
-                  if (!topic || !content) {
-                      alert(t['fillallfields']);
-                      return;
-                  }
-                  
-                  // 這裡可以添加發送反饋到後端的代碼
-                  alert(t['thankforfeedback']);
-                  modal.style.display = "none";
-                  
-                  // 清空表單
-                  document.getElementById("feedbackTopic").value = "";
-                  document.getElementById("feedbackContent").value = "";
-              };
-          }
+            })
+            .catch(error => {
+              console.error('提交反馈时出错:', error);
+              alert(t['erroroccurred'] || '发生错误，请稍后再试');
+            });
+        };
       }
-  
+
       // 顯示 About us 模態窗口
       function showAboutUsModal() {
-          const modal = document.getElementById("aboutUsModal");
-          if (!modal) return;
-          
-          modal.style.display = "block";
-          
-          // 綁定關閉按鈕事件
-          const closeButton = modal.querySelector(".close-button");
-          if (closeButton) {
-              closeButton.onclick = function() {
-                  modal.style.display = "none";
-              };
-          }
-          
-          // 點擊模態窗口外部關閉
-          window.onclick = function(event) {
-              if (event.target === modal) {
-                  modal.style.display = "none";
-              }
+        const modal = document.getElementById("aboutUsModal");
+        if (!modal) return;
+
+        modal.style.display = "block";
+
+        // 綁定關閉按鈕事件
+        const closeButton = modal.querySelector(".close-button");
+        if (closeButton) {
+          closeButton.onclick = function () {
+            modal.style.display = "none";
           };
+        }
+
+        // 點擊模態窗口外部關閉
+        window.onclick = function (event) {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        };
       }
-      
+
       // 側邊選單項目功能
       const menuItems = document.querySelectorAll(".menu-item");
       menuItems.forEach(item => {
-          item.addEventListener("click", () => {
-            const menuText = item.querySelector(".menu-text").textContent;
-            const t = translations[currentLanguage];
-            
-            if (menuText === t['feedback']) {
-                showFeedbackModal();
-            } else if (menuText === t['setting']) {
-                showSettingModal();
-            } else if (menuText === t['aboutus']) {
-                showAboutUsModal();
-            }
-            
-            // 點擊後關閉選單
-            if (dotsMenu) {
-                dotsMenu.style.display = "none";
-            }
+        item.addEventListener("click", () => {
+          const menuText = item.querySelector(".menu-text").textContent;
+          const t = translations[currentLanguage];
+
+          if (menuText === t['feedback']) {
+            showFeedbackModal();
+          } else if (menuText === t['setting']) {
+            showSettingModal();
+          } else if (menuText === t['aboutus']) {
+            showAboutUsModal();
+          }
+
+          // 點擊後關閉選單
+          if (dotsMenu) {
+            dotsMenu.style.display = "none";
+          }
         });
-    });
-    
-    // 側邊欄導航項目功能
-    const navItems = document.querySelectorAll(".nav-item");
-    navItems.forEach(item => {
+      });
+
+      // 側邊欄導航項目功能
+      const navItems = document.querySelectorAll(".nav-item");
+      navItems.forEach(item => {
         item.addEventListener("click", (event) => {
-            const href = item.getAttribute("href");
-            if (!href || href === "#") {
-                event.preventDefault();
-                const linkText = item.querySelector(".nav-label").textContent;
-                
-                const t = translations[currentLanguage];
-                
-                if (linkText === t['home']) {
-                    window.location.href = "/chat";  // 導航到聊天頁面
-                } else if (linkText === t['history']) {
-                    // 顯示歷史面板
-                    const historyPanel = document.getElementById("history-panel");
-                    if (historyPanel) {
-                        historyPanel.style.display = historyPanel.style.display === "flex" ? "none" : "flex";
-                    }
-                } else if (linkText === t['explore']) {
-                    window.location.href = "/explore";  // 導航到探索頁面
-                }
+          const href = item.getAttribute("href");
+          if (!href || href === "#") {
+            event.preventDefault();
+            const linkText = item.querySelector(".nav-label").textContent;
+
+            const t = translations[currentLanguage];
+
+            if (linkText === t['home']) {
+              window.location.href = "/chat";  // 導航到聊天頁面
+            } else if (linkText === t['history']) {
+              // 顯示歷史面板
+              const historyPanel = document.getElementById("history-panel");
+              if (historyPanel) {
+                historyPanel.style.display = historyPanel.style.display === "flex" ? "none" : "flex";
+              }
+            } else if (linkText === t['explore']) {
+              window.location.href = "/explore";  // 導航到探索頁面
             }
+          }
         });
-    });
-    
-    // 初始化聊天記錄
-    renderSidebarButtons();
-    
-    // 綁定發送訊息事件
-    if (sendButton) {
+      });
+
+      // 初始化聊天記錄
+      renderSidebarButtons();
+
+      // 綁定發送訊息事件
+      if (sendButton) {
         sendButton.addEventListener("click", sendMessage);
-    }
-    
-    // 監聽 Enter 鍵
-    if (messageInput) {
-        messageInput.addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();  // 防止預設行為
-                sendMessage();
-            }
+      }
+
+      // 監聽 Enter 鍵
+      if (messageInput) {
+        messageInput.addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();  // 防止預設行為
+            sendMessage();
+          }
         });
-    }
-    
-    // 暴露預覽語言函數到全局
-    window.previewLanguage = previewLanguage;
-});
-</script>     
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+      }
+
+      // 暴露預覽語言函數到全局
+      window.previewLanguage = previewLanguage;
+    });
+  </script>

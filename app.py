@@ -50,6 +50,17 @@ def init_db():
         )
         ''')
         
+        # 创建 feedback 表
+        c.execute('''
+        CREATE TABLE IF NOT EXISTS feedback (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            topic TEXT NOT NULL,
+            content TEXT NOT NULL,
+            user_email TEXT,
+            submission_date TEXT NOT NULL
+        )
+        ''')
+        
         conn.commit()
         
         # 確認表格是否創建成功
@@ -58,6 +69,12 @@ def init_db():
             print("✅ 資料庫表 'users' 已成功創建")
         else:
             print("❌ 警告: 資料庫表 'users' 創建失敗")
+        
+        c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='feedback';")
+        if c.fetchone():
+            print("✅ 資料庫表 'feedback' 已成功創建")
+        else:
+            print("❌ 警告: 資料庫表 'feedback' 創建失敗")
         
         conn.close()
         print(f"✅ 資料庫初始化完成，路徑: {DB_PATH}")
@@ -117,6 +134,10 @@ def chat_page():
 def explore_page():
     return render_template('explore.html')
 
+@app.route('/feedback-admin')
+def feedback_admin():
+    return render_template('feedback-admin.html')
+
 # === 聊天機器人處理 ===
 @app.route("/chat", methods=["POST"])
 def chat_api():
@@ -132,6 +153,66 @@ def chat_api():
         return jsonify({"reply": reply})
     except Exception as e:
         return jsonify({"reply": f"錯誤：{str(e)}"})
+
+# === 反馈处理 API ===
+@app.route('/api/submit-feedback', methods=['POST'])
+def submit_feedback():
+    data = request.json
+    
+    topic = data.get('topic')
+    content = data.get('content')
+    user_email = data.get('email', '')
+    
+    if not topic or not content:
+        return jsonify({
+            "success": False,
+            "message": "主题和内容是必填的"
+        }), 400
+    
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        c = conn.cursor()
+        c.execute(
+            "INSERT INTO feedback (topic, content, user_email, submission_date) VALUES (?, ?, ?, ?)",
+            (topic, content, user_email, datetime.now().isoformat())
+        )
+        conn.commit()
+        conn.close()
+        
+        return jsonify({
+            "success": True,
+            "message": "反馈已成功提交，谢谢！"
+        })
+    except Exception as e:
+        print(f"提交反馈时出错: {str(e)}")
+        traceback.print_exc()
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500
+
+# 查看反馈的 API
+@app.route('/api/feedbacks', methods=['GET'])
+def get_feedbacks():
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row  # 使结果可以通过列名访问
+        c = conn.cursor()
+        c.execute("SELECT * FROM feedback ORDER BY submission_date DESC")
+        feedbacks = [dict(row) for row in c.fetchall()]
+        conn.close()
+        
+        return jsonify({
+            "success": True,
+            "feedbacks": feedbacks
+        })
+    except Exception as e:
+        print(f"获取反馈列表错误: {str(e)}")
+        traceback.print_exc()
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500
 
 # === 登入與註冊 API ===
 @app.route('/api/register', methods=['POST'])
